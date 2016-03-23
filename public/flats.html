@@ -1,0 +1,9 @@
+Flats
+
+<ul>
+    <li ng-repeat="flat in flats.flats">
+        {{flat.title}} - {{flat.description}}
+        <a ui-sref="flat({id: flat._id})">Details</a>
+        <button ng-click="flats.deleteFlat(flat._id)">DELETE</button>
+    </li>
+</ul>

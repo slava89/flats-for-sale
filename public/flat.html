@@ -1,0 +1,25 @@
+<h1>Flat</h1>
+
+<div>
+    <h3>Title</h3>
+    <p>{{flatCtrl.flat.title}}</p>
+</div>
+<div>
+    <h3>Description</h3>
+    <p>{{flatCtrl.flat.description}}</p>
+</div>
+<div>
+    <form ng-submit="flatCtrl.submit($event)">
+        <textarea ng-model="flatCtrl.input.comment"></textarea>
+        <button type="submit">Add comment</button>
+    </form>
+</div>
+
+<div>
+    <h3>Comments</h3>
+    <p ng-repeat="comment in flatCtrl.flat.comments track by $index">{{comment}} 
+        <button>
+            delete
+        </button>
+    </p>
+</div>
