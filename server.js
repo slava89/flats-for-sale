@@ -65,4 +65,16 @@ app.post('/api/flat/:id/comment', function (req, res) {
     })
 })
 
+app.delete('/api/flat/:id/comment/:index', function (req, res) {
+    Flat.findById(req.params.id, function(err, flat) {
+        if (err) return res.status(403).send(err);
+        
+        flat.comments.splice(req.params.index, 1);
+        flat.save();
+        
+        return res.json(flat)
+       // return res.send(flat);
+    })
+})
+
 app.listen(3000)
