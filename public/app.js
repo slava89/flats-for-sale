@@ -15,7 +15,8 @@
                         var vm = this
                         angular.extend(vm, {
                             flats: flats,
-                            deleteFlat: deleteFlat
+                            deleteFlat: deleteFlat,
+                            addFlatLike: addFlatLike
                         })
 
                         function deleteFlat(_id) {
@@ -30,6 +31,22 @@
                                     vm.flats = data
                                 })
                         }
+
+                        function addFlatLike(_id) {
+
+                            $http.post('/api/flat/' + _id + '/flatLikes')
+                                .then(function (response) {
+                                    return $http.get('/api/flats')
+                                })
+                                .then(function (response) {
+                                    return response.data
+                                })
+                                .then(function (data) {
+                                    vm.flats = data
+                                })
+                                                
+                        }
+
                     },
                     controllerAs: 'flats',
                     resolve: {
@@ -79,25 +96,7 @@
                     })
             }
         })
-        .controller('AddCommentController', function ($http, $state, $stateParams) {
-            var vm = this
 
-            angular.extend(vm, {
-                input: {
-                    comment: ''
-
-                },
-                submit: submit
-
-            })
-
-            function submit($event) {
-                $http.post('/api/flat/', vm.input)
-                    .then(function success(response) {
-                        $state.go('flats')
-                    })
-            }
-        })
         .controller('FlatController', function ($http, flat) {
             var vm = this
 
@@ -125,9 +124,9 @@
             function deleteComment($index) {
                 var id = flat._id;
                 var index = $index;
-                
-                
-                $http.delete('/api/flat/' + id + '/comment/'+ index)
+
+
+                $http.delete('/api/flat/' + id + '/comment/' + index)
                     .then(function (response) {
                         return $http.get('/api/flat/' + id)
                     })

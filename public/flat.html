@@ -18,6 +18,7 @@
 <div>
     <h3>Comments</h3>
     <p ng-repeat="comment in flatCtrl.flat.comments track by $index">{{comment}} 
+        
         <button ng-click="flatCtrl.deleteComment($index)">
             delete
         </button>

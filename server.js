@@ -13,7 +13,8 @@ var Schema = mongoose.Schema;
 var blogSchema = new Schema({
     title: String,
     description: String,
-    comments: Array
+    comments: Array,
+    flatLikes: {type: Number, default: 0} 
 });
 
 var Flat = mongoose.model('Flat', blogSchema)
@@ -62,6 +63,17 @@ app.post('/api/flat/:id/comment', function (req, res) {
         flat.save();
         
         return res.send(flat);
+    })
+})
+
+app.post('/api/flat/:id/flatLikes', function (req, res) {
+    Flat.findById(req.params.id, function(err, flat) {
+        if (err) return res.status(403).send(err);
+        
+        flat.flatLikes = flat.flatLikes + 1;
+        flat.save();
+        
+        return res.json(flat);
     })
 })
 
