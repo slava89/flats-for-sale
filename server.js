@@ -14,7 +14,7 @@ var blogSchema = new Schema({
     title: String,
     description: String,
     comments: Array,
-    // likes: String
+    // likes: Number
 });
 
 var Flat = mongoose.model('Flat', blogSchema)
