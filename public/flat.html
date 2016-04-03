@@ -18,6 +18,8 @@
 <div>
     <h3>Comments</h3>
     <p ng-repeat="comment in flatCtrl.flat.comments track by $index">{{comment}} 
+        <span>&#x2661;</span>
+        <span>{{"0"}}</span>
         <button ng-click="flatCtrl.deleteComment($index)">
             delete
         </button>

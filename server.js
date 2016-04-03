@@ -13,7 +13,8 @@ var Schema = mongoose.Schema;
 var blogSchema = new Schema({
     title: String,
     description: String,
-    comments: Array
+    comments: Array,
+    // likes: String
 });
 
 var Flat = mongoose.model('Flat', blogSchema)
@@ -52,7 +53,19 @@ app.delete('/api/flat/:id', function (req, res) {
 
         return res.json(status)
     })
+    
 })
+
+// app.post('/api/flat/:id', function (req, res) {
+    
+//         Flat.findById(req.params.id, function (err, status) {
+//         if (err) return res.status(403).send(err)
+//         var likes = flat.likes;
+//         likes += 1;
+//         flat.save();
+//         return res.json(status)
+//     })
+// })
 
 app.post('/api/flat/:id/comment', function (req, res) {
     Flat.findById(req.params.id, function(err, flat) {
