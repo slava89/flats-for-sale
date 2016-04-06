@@ -1,5 +1,37 @@
-<h1>Login page</h1>
+<div class="row">
+    
 
-<input ng-model="loginCtrl.user.username"><br/>
-<input ng-model="loginCtrl.user.password"><br/>
-<button ng-click="loginCtrl.login(user)">Login!</button>
+    <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4 login-form-background">
+        <h3 class="text-center">Login</h3>
+        <form ng-submit="loginCtrl.login(user)">
+
+            <fieldset>
+
+                <div class="form-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                         <i class=" glyphicon glyphicon-user"></i>
+                    </span>
+                        <input type="text" placeholder="Username" ng-model="loginCtrl.user.username" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                        <i class=" glyphicon glyphicon-asterisk"></i>
+                    </span>
+                        <input type="password" placeholder="Password" ng-model="loginCtrl.user.password" class="form-control">
+                    </div>
+                </div>
+
+
+                <div class="text-center form-group">
+                    <button type="submit" class="btn btn-success btn-lg btn-block">Sign in</button>
+                </div>
+
+            </fieldset>
+        </form>
+
+    </div>
+</div>

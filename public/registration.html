@@ -1,6 +1,53 @@
-<h1>Registration page</h1>
+<!--<h1>Registration page</h1>
 
 <input ng-model="registrationCtrl.user.username"><br/>
 <input ng-model="registrationCtrl.user.password"><br/>
 <input ng-model="registrationCtrl.user.password2"><br/>
-<button ng-click="registrationCtrl.register(user)">Register!</button>
+<button ng-click="registrationCtrl.register(user)">Register!</button>-->
+
+<div class="row">
+    
+
+    <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4 login-form-background">
+        <h3 class="text-center">Registration</h3>
+        <form ng-submit="registrationCtrl.register(user)">
+
+            <fieldset>
+
+                <div class="form-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                         <i class=" glyphicon glyphicon-user"></i>
+                    </span>
+                        <input type="text" placeholder="Username" ng-model="registrationCtrl.user.username" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                        <i class=" glyphicon glyphicon-asterisk"></i>
+                    </span>
+                        <input type="password" placeholder="Password" ng-model="registrationCtrl.user.password" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                        <i class=" glyphicon glyphicon-asterisk"></i>
+                    </span>
+                        <input type="password" placeholder="Verify password" ng-model="registrationCtrl.user.password2" class="form-control">
+                    </div>
+                </div>
+
+
+                <div class="text-center form-group">
+                    <button type="submit" class="btn btn-success btn-lg btn-block">Register</button>
+                </div>
+
+            </fieldset>
+        </form>
+
+    </div>
+</div>
