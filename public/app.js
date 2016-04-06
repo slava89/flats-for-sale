@@ -1,13 +1,56 @@
 /* global angular */
 (function () {
-    angular.module('app', ['ui.router'])
-        .config(function ($stateProvider, $urlRouterProvider) {
+   var app = angular.module('app', ['ui.router'])
+        app.config(function ($stateProvider, $urlRouterProvider) {
             //
             // For any unmatched url, redirect to /state1
             $urlRouterProvider.otherwise("/");
             //
             // Now set up the states
             $stateProvider
+                .state('login', {
+                    url: "/login",
+                    templateUrl: "/login.html",
+                    controller: "LoginController as loginCtrl"
+                })
+
+                .state('registration', {
+                    url: "/registration",
+                    templateUrl: "/registration.html",
+                    controller: "RegistrationController as registrationCtrl"
+                })
+
+                .state('profile', {
+                    url: "/profile",
+                    templateUrl: "/profile.html",
+                    controller: "ProfileController as profileCtrl",
+                    resolve: {
+                        //if loggen in then go to profile
+                        logincheck: function checkLoggedIn($q, $timeout, $http, $state, $rootScope) {
+                            var deferred = $q.defer();
+
+                            $http.get('/loggedin').success(function (user) {
+                                $rootScope.errorMessage = null;
+                                //User is Authenticated
+                                if (user !== '0') {
+                                    $rootScope.currentUser = user;
+                                    deferred.resolve();
+                                }
+                                //User in NOT Authenticated
+                                else {
+                                    $rootScope.errorMessage = 'You need to log in';
+                                    deferred.reject();
+                                    $state.go('login');
+
+                                }
+
+                            });
+                            
+                            // return deferred.promise;
+                        }
+                    }
+                })
+
                 .state('flats', {
                     url: "/",
                     templateUrl: "/flats.html",
@@ -44,7 +87,7 @@
                                 .then(function (data) {
                                     vm.flats = data
                                 })
-                                                
+
                         }
 
                     },
@@ -78,7 +121,70 @@
                     }
                 })
         })
-        .controller('AddFlatController', function ($http, $state) {
+
+        app.controller('LoginController', function ($http, $rootScope, $state) {
+            var vm = this;
+
+            angular.extend(vm, {
+                user: {
+                    username: '',
+                    password: ''
+                },
+                login: login
+            })
+
+            function login(user) {
+                console.log(vm.user)
+                $http.post('/login', vm.user)
+                    .success(function (response) {
+                        console.log(response);
+                        $rootScope.currentUser = user;
+                        $state.go('profile');
+                    });
+            }
+
+        })
+
+        app.controller('RegistrationController', function ($http, $rootScope, $state) {
+            var vm = this;
+
+            angular.extend(vm, {
+                user: {
+                    username: '',
+                    password: '',
+                    password2: ''
+                },
+                register: register
+            })
+
+            function register(user) {
+                console.log(vm.user);
+                //todo verify passwors are the same and notify user
+                if (vm.user.password == vm.user.password2) {
+                    $http.post('/registration', vm.user)
+                        .success(function (user) {
+                            $rootScope.currentUser = user;
+                            console.log(user);
+                            $state.go('profile');
+
+                        });
+                }
+
+            };
+
+        })
+        
+        app.controller('ProfileController', function ($http) {
+            var vm = this;
+            $http.get('/rest/user')
+            .success(function (users) {
+                vm.users = users;
+            })
+        })
+
+
+
+        app.controller('AddFlatController', function ($http, $state) {
             var vm = this
 
             angular.extend(vm, {
@@ -97,7 +203,7 @@
             }
         })
 
-        .controller('FlatController', function ($http, flat) {
+        app.controller('FlatController', function ($http, flat) {
             var vm = this
 
             angular.extend(vm, {
@@ -139,7 +245,21 @@
             }
         });
 
+    app.controller("NavController", function($rootScope, $http, $state){
+        var vm = this;
+        this.logout = function()
+        {
+            $http.post('/logout')
+            .success(function () {
+                $rootScope.currentUser = null;
+                $state.go('flats');
+            })
+        }
+    })
+    
     angular.bootstrap(document.getElementById('app'), ['app'])
+    
+  
 })()
 
 
