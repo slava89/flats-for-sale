@@ -8,6 +8,7 @@
     <title>Hello</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="users.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -26,48 +27,58 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a ui-sref="flats">Flats</a></li>
-                        <li><a ui-sref="add">Add</a></li>
+                        <li><a ui-sref="add" ng-show="currentUser">Add</a></li>
                         <li><a ui-sref="login" ng-show="!currentUser">Login</a></li>
                         <li><a ui-sref="registration" ng-show="!currentUser">Register</a></li>
                         <li><a ui-sref="profile" ng-show="currentUser">Profile</a></li>
-                        <li><a href=#' ng-click="navCtrl.logout()" ng-show="currentUser">Logout</a></li>
-                        <!--<li><a ui-sref="login" ng-show="!currentUser">Login</a></li>
-                        <li><a ui-sref="registration" >Register</a></li>
-                        <li><a ui-sref="profile" >Profile</a></li>
-                        <li><a href=#' ng-click="navCtrl.logout()" >Logout</a></li>-->
-                        <!--<li ng-show="!currentUser"><a ui-sref="login" >Login</a><a ui-sref="registration">Register</a></li>
-                
-                        <li  ng-show="currentUser"><a ui-sref="profile">Profile</a><a href=#' ng-click="navCtrl.logout()">Logout</a></li>-->
-            
-                        
-                
-                
-           
+                        <li><a href=#' ng-click="navCtrl.logout()" ng-show="currentUser">Logout</a></li>                      
                     </ul>
                 </div>
             </div>            
         </div>
-        <div ui-view></div>
-        <!--<div id="app">========================================-->
-        <!--<a ui-sref="flats">Flats</a>
-        <a ui-sref="add">Add</a>
-            <span ng-show="!currentUser">
-                <a ui-sref="login">Login</a>
-                <a ui-sref="registration">Register</a>
-            </span>
+        <div ui-view></div>      
+        <!--{{currentUser}}-->
         
-            <span ng-show="currentUser">
-                    <a ui-sref="profile">Profile</a>
-                    <a href=#' ng-click="navCtrl.logout()">Logout</a>
-            </span> 
-        <div ui-view></div>
-        {{currentUser}}-->
+            <!--<div class="navbar navbar-static-bottom" role="navigation">
+                <div class="container">
+                    <div class="navbar-text pull-left">
+                        <p> &copy; 2016 Snoopydogg</p>
+                    </div>
+                </div>
+            </div>-->
+            
+            <!--<footer>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-2" >
+                            <h6> &copy; 2016 Snoopydogg sales flats </h6>
+                            
+                        </div>
+                        
+                         <div class="col-sm-4" >
+                            <h6> About </h6>
+                            <p>Calvin Cordozar Broadus, Jr. (born October 20, 1971[2]), known professionally as Snoop Dogg, is an American rapper and actor from Long Beach, California. His music career began in 1992 when he was discovered by Dr. Dre of N.W.A and, as a result, was prominently featured throughout Dr. Dre's solo debut album, The Chronic (1992). He has since sold over twenty-one million albums in the United States and thirty-five million albums worldwide.</p>
+                        </div>                  
+                                              
+                        <div class="col-sm-offset-4 col-sm-2" >
+                            <h6>Follow us</h6>
+                            <ul class="unstyled">                                
+                                <li><a href="#"><i class="fa fa-facebook-square fa-2x"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter-square fa-2x"></i></a></li>
+                            </ul>
+                        </div>                        
+                    </div>
+                </div>
+            </footer>-->
+       
+        
     </div>
+    
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
     <script src="app.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.0.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 </body>
 

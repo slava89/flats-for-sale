@@ -7,6 +7,7 @@ var app = express()
 app.use(express.static(__dirname + '/public'))
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
+var sha256 = require('js-sha256');
 
 app.use(session({secret:'this is the secret'}))
 app.use(cookieParser());
@@ -130,19 +131,15 @@ passport.use(new LocalStrategy(
 
     function (username, password, done) {
         UserModel.findOne({ username: username, password: password },
-            function (err, user) {
+            function (err, user, info) {
+                // if (err) {return done(err);} //not needed
+              
                 if (user) {
                     return done(null, user)
                 }
                 return done(null, false, { message: 'Unable to login' });
-            });
-   
-        //     if(username == password)
-        //     {
-        //         return done(null, {username: username, firstname:'Alice'})
-        //     }
-   
-        // return done(null, false, {message: 'Unable to login'})
+            });  
+        
     }
     ));
 
@@ -154,15 +151,22 @@ passport.deserializeUser(function (user, done) {
     done(null, user);
 });
 
+//, {failureFlash: true }
+
+app.use(function (req, res, next) {
+  console.log(req.isAuthenticated());
+  console.log(req.user);
+  next();
+});
 
 
-
-app.post('/login', passport.authenticate('local'), function (req, res) {
+app.post('/login', passport.authenticate('local'), function (req, res, info) {
     console.log('/login')
     console.log(req.user);
     res.send(req.user);
+    res.send(req.message);
     // res.json(req.user);
-})
+})//res.redirect('/users/' + req.user.username);  ADD LATER!!!!!!!!!!!!!
 
 app.post('/logout', function(req, res)
 {//passportJS has property logout
@@ -179,7 +183,20 @@ app.get('/loggedin', function (req, res) {
     res.send(req.isAuthenticated() ? req.user : '0');
 })
 
-app.get('/rest/user', function(req, res)
+var auth = function(req, res, next)
+{
+    if(!req.isAuthenticated())
+    {
+        res.send(401);
+    }
+    else
+    {
+        next();     
+    }    
+            
+}
+
+app.get('/rest/user', auth, function(req, res)
 {
    UserModel.find(function(err, users) {
        res.json(users);
@@ -212,5 +229,16 @@ app.post('/registration', function (req,res) {
     console.log(newUser);
     // res.send(200);
 })
+
+app.post('/isloggedin', function(req, res){
+    if(req.isAuthenticated())
+    {
+        res.send({state: 'success', user: req.user});
+    }
+    else
+    {
+        res.send({state: 'failure', user: null});
+    }
+});
 
 app.listen(3000)
