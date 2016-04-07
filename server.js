@@ -50,10 +50,9 @@ var userSchema = new Schema({
 
 var UserModel = mongoose.model('UserModel', userSchema);
 
-// var admin = new UserModel({ username: 'Snoopavision', password: 'Snoop', firstname: 'SnoopyDogg', roles: ['admin'] })
+// var admin = new UserModel({ username: 'snoop', password: '1', firstname: 'SnoopyDogg', roles: ['admin'] })
 // var commonUser = new UserModel({ username: 'nigga', password: 'nigga', firstname: '50Cent', roles: ['commonUser'] })
-
-// admin.save();
+//  admin.save();
 // commonUser.save();
 //---------------------------------------------------
 
@@ -153,11 +152,11 @@ passport.deserializeUser(function (user, done) {
 
 //, {failureFlash: true }
 
-app.use(function (req, res, next) {
-  console.log(req.isAuthenticated());
-  console.log(req.user);
-  next();
-});
+// app.use(function (req, res, next) {
+//   console.log(req.isAuthenticated());
+//   console.log(req.user);
+//   next();
+// });
 
 
 app.post('/login', passport.authenticate('local'), function (req, res, info) {

@@ -158,16 +158,19 @@
 
             function login(user) {
 
-
-                console.log(vm.user)
+                $rootScope.loginerror = false;
+                // console.log(vm.user)
                 $http.post('/login', vm.user)
                     .success(function (response) {
                         console.log(response);
                         $rootScope.currentUser = user;
+                        // errormessage = false;
                         $state.go('profile');//res.redirect('/users/' + req.user.username); ADD later!!!!!
                     })
                     .error(function () {
-                        alert('wrong name or password')
+                    //    document.getElementById('errormessage').innerHTML = "Bad name or password";
+                //    errormessage = true;
+                $rootScope.loginerror = true;
 
                     });
             }
@@ -188,6 +191,7 @@
 
             function register(user) {
                 console.log(vm.user);
+                $rootScope.errorregister = false;
                 //todo verify passwors are the same and notify user
                 if (vm.user.password == vm.user.password2) {
                     $http.post('/registration', vm.user)
@@ -197,6 +201,9 @@
                             $state.go('profile');
 
                         });
+                }
+                else{
+                    $rootScope.errorregister = true;
                 }
 
             };

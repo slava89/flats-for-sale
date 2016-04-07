@@ -1,7 +1,7 @@
 <div class="row">
     
 
-    <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4 login-form-background">
+    <div class="col-xs-offset-1 col-xs-10 col-md-offset-4 col-md-4 login-form-background">
         <h3 class="text-center">Login</h3>
         <form ng-submit="loginCtrl.login(user)" id="loginForm">
 
@@ -36,6 +36,11 @@
                 <div class="text-center form-group">
                     <button type="submit" class="btn btn-success btn-lg btn-block">Sign in</button>
                 </div>
+                
+                
+                    
+                
+                <div class="alert alert-danger text-center form-group" role="alert" ng-show="loginerror">Incorrect Name or Password</div>
 
             </fieldset>
         </form>
