@@ -1,10 +1,3 @@
-<!--<h1>Registration page</h1>
-
-<input ng-model="registrationCtrl.user.username"><br/>
-<input ng-model="registrationCtrl.user.password"><br/>
-<input ng-model="registrationCtrl.user.password2"><br/>
-<button ng-click="registrationCtrl.register(user)">Register!</button>-->
-
 <div class="row">
     
 
@@ -45,6 +38,8 @@
                 <div class="text-center form-group">
                     <button type="submit" class="btn btn-success btn-lg btn-block">Register</button>
                 </div>
+                
+                <div class="alert alert-danger text-center form-group" role="alert" ng-show="errorregister">Passwords don't match</div>
 
             </fieldset>
         </form>

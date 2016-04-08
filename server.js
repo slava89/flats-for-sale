@@ -50,10 +50,9 @@ var userSchema = new Schema({
 
 var UserModel = mongoose.model('UserModel', userSchema);
 
-// var admin = new UserModel({ username: 'Snoopavision', password: 'Snoop', firstname: 'SnoopyDogg', roles: ['admin'] })
+// var admin = new UserModel({ username: 'snoop', password: '1', firstname: 'SnoopyDogg', roles: ['admin'] })
 // var commonUser = new UserModel({ username: 'nigga', password: 'nigga', firstname: '50Cent', roles: ['commonUser'] })
-
-// admin.save();
+//  admin.save();
 // commonUser.save();
 //---------------------------------------------------
 
@@ -153,18 +152,25 @@ passport.deserializeUser(function (user, done) {
 
 //, {failureFlash: true }
 
-app.use(function (req, res, next) {
-  console.log(req.isAuthenticated());
-  console.log(req.user);
-  next();
-});
+// app.use(function (req, res, next) {
+//   console.log(req.isAuthenticated());
+//   console.log(req.user);
+//   next();
+// });
 
 
 app.post('/login', passport.authenticate('local'), function (req, res, info) {
-    console.log('/login')
-    console.log(req.user);
-    res.send(req.user);
-    res.send(req.message);
+    if (err || !user){
+        res.status(400).send(info)
+    }
+    else {
+            res.send(req.user);
+            // res.send(req.message);
+    }
+    // console.log('/login')
+    // console.log(req.user);
+    // res.send(req.user);
+    // res.send(req.message);
     // res.json(req.user);
 })//res.redirect('/users/' + req.user.username);  ADD LATER!!!!!!!!!!!!!
 

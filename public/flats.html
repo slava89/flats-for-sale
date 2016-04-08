@@ -4,7 +4,7 @@ Flats
     <li ng-repeat="flat in flats.flats">
         {{flat.title}} - {{flat.description}}
         <a ui-sref="flat({id: flat._id})">Details</a>
-        <span ng-click="flats.addFlatLike(flat._id)"><i id="like" class="fa fa-heart-o"></i></span>
+        <span id="like" ng-click="flats.addFlatLike(flat._id)"><i  class="fa fa-heart-o"></i></span>
         <span class="label label-info">{{flat.flatLikes}}</span>
         
         <button ng-click="flats.deleteFlat(flat._id)" ng-show="flats.isAdmin()">DELETE</button>
