@@ -170,10 +170,16 @@
                     })
                     .error(function () {
 <<<<<<< HEAD
+<<<<<<< HEAD
                 //     //    document.getElementById('errormessage').innerHTML = "Bad name or password";
                 // //    errormessage = true;
                 $rootScope.loginerror = true;
                 
+=======
+                    //    document.getElementById('errormessage').innerHTML = "Bad name or password";
+                //    errormessage = true;
+                $rootScope.loginerror = true;
+>>>>>>> 2263d692e897de43d6aefde715b99dbe6cb3e38b
 =======
                     //    document.getElementById('errormessage').innerHTML = "Bad name or password";
                 //    errormessage = true;
