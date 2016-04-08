@@ -160,17 +160,17 @@ passport.deserializeUser(function (user, done) {
 
 
 app.post('/login', passport.authenticate('local'), function (req, res, info) {
-    if (err || !user){
-        res.status(400).send(info)
-    }
-    else {
-            res.send(req.user);
-            // res.send(req.message);
-    }
+    // if (err || !user){
+    //     res.status(400).send(info)
+    // }
+    // else {
+    //         res.send(req.user);
+    //         // res.send(req.message);
+// }
     // console.log('/login')
     // console.log(req.user);
-    // res.send(req.user);
-    // res.send(req.message);
+    res.send(req.user);
+    res.send(req.message);
     // res.json(req.user);
 })//res.redirect('/users/' + req.user.username);  ADD LATER!!!!!!!!!!!!!
 
