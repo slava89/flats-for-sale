@@ -31,14 +31,26 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 var Schema = mongoose.Schema;
 
-var blogSchema = new Schema({
+var flatSchema = new Schema({
     title: String,
     description: String,
     comments: Array,
     flatLikes: { type: Number, default: 0 }
 });
 
-var Flat = mongoose.model('Flat', blogSchema)
+// var commentSchema = new Schema({
+//     comments: [{
+//         text: String,
+//         postedBy: {
+//             type: mongoose.Schema.Types.ObjectId,
+//             ref:'UserModel'
+//         }
+//     }]
+// });
+
+// var Comment = mongoose.model('Comment', commentSchema)
+
+var Flat = mongoose.model('Flat', flatSchema)
 
 //User schema---------------------------------------
 var userSchema = new Schema({
@@ -54,7 +66,116 @@ var UserModel = mongoose.model('UserModel', userSchema);
 // var commonUser = new UserModel({ username: 'nigga', password: 'nigga', firstname: '50Cent', roles: ['commonUser'] })
 //  admin.save();
 // commonUser.save();
+
+//===================================================================================================================
+// var commentSchema = new Schema({
+    
+//         text: String,//defines the reference by ObjectId for the postedBy property of the commentSchema
+//         postedBy: { type: mongoose.Schema.Types.ObjectId, ref:'UserModel'},
+//         // postedIn: { type: mongoose.Schema.Types.ObjectId, ref:'Flat'}
+    
+// });
+// var Comment = mongoose.model('Comment', commentSchema);
+// var comment = new Comment ({text: 'Very nice flat!', postedBy: '570699fecbf8f1502cb8dd40'})
+
+// comment.save(function(error){
+//     if (!error) {
+//         Comment.find({})
+//         // .populate('postedBy')
+//         .populate('postedBy')
+//         .exec(function(error, comments){
+//             console.log(JSON.stringify(comments, null, '\t'))
+//         })
+//     }
+// })
+
+//==================================================================================================
+
+// var flatSchema = new Schema({
+//     title: String,
+//     description: String,    
+//     flatLikes: { type: Number, default: 0 },
+//     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]    
+// });
+
+// var Flat = mongoose.model('Flat', flatSchema)
+
+
+
+
+
+// var comment = new Comment({
+//     title: "Hello World",
+//     postedBy: alex._id,
+//     comments: [{
+//         text: "Nice post!",
+//         postedBy: joe._id
+//     }, {
+//         text: "Thanks :)",
+//         postedBy: alex._id
+//     }]
+// })
+
+
+// var userSchema = new Schema({
+//     username: String,
+//     password: String,
+//     roles: [String],
+//     firstName: String,
+//     comments : [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
+// });
+
+// var UserModel = mongoose.model('UserModel', userSchema);
+
+
+
+// // comment.save(function(error){
+// //     if (!error) {
+// //         Comment.find({})
+// //         // .populate('postedBy')
+// //         .populate('comments.postedBy')
+// //         .exec(function(error, comments){
+// //             console.log(JSON.stringify(comments, null, '\t'))
+// //         })
+// //     }
+// // })
+
+// var newComment = new Comment(req.body);
+//             newUser.roles = ['commonUser'];
+//             newUser.save(function(err,user)
+//             {
+//                 req.login(user, function(err)
+//                 {
+//                       if(err){return next(err);}
+//                       res.json(user);
+//                 });
+              
+                
+//             });
+
+// var likeSchema =  new Schema({
+//     title: String,
+//     description: String,    
+//     flatLikes: { type: Number, default: 0 }
+    
+// });
+
+app.post('/api/flat/:id/comment', function (req, res) {
+    Flat.findById(req.params.id, function (err, flat) {
+        if (err) return res.status(403).send(err);
+
+        flat.comments.push(req.body.comment);
+        flat.save();
+
+        return res.send(flat);
+    })
+})
+
+
+
 //---------------------------------------------------
+
+
 
 app.get('/api/flats', function (req, res) {
     Flat.find({}, function (err, data) {
@@ -102,6 +223,37 @@ app.post('/api/flat/:id/comment', function (req, res) {
         return res.send(flat);
     })
 })
+
+// app.post('/api/flat/:id/comment', function (req, res) {
+//     Flat.findById(req.params.id, function (err, flat) {
+//         if (err) return res.status(403).send(err);
+
+//         flat.comments.push(req.body.comment);
+//         flat.save();
+
+//         return res.send(flat);
+//     })
+// })
+
+
+// var newComment = new Comment(req.body);
+// // newUser.roles = ['commonUser'];
+// comment.save(function (error) {
+//     if (!error) {
+//         Comment.find({})
+//         // .populate('postedBy')
+//             .populate('comments.postedBy')
+//             .exec(function (error, comments) {
+//                 console.log(JSON.stringify(comments, null, '\t'))
+//             })
+//     }
+// })
+//             // newComment.save(function(err,comment)
+//             // {                
+//             //           if(err){return next(err)}
+//             //           res.json(comment);             
+                            
+//             // });
 
 app.post('/api/flat/:id/flatLikes', function (req, res) {
     Flat.findById(req.params.id, function (err, flat) {
@@ -167,8 +319,8 @@ app.post('/login', passport.authenticate('local'), function (req, res, info) {
     //         res.send(req.user);
     //         // res.send(req.message);
 // }
-    // console.log('/login')
-    // console.log(req.user);
+    console.log('Login successfull!')
+    console.log(req.user);
     res.send(req.user);
     res.send(req.message);
     // res.json(req.user);

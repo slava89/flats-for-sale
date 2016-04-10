@@ -83,12 +83,17 @@
                                 .then(function (response) {
                                     return $http.get('/api/flats')
                                 })
-                                .then(function (response) {
-                                    return response.data
+                                 .then(function (response) {
+                                    vm.flats = response.data
                                 })
-                                .then(function (data) {
-                                    vm.flats = data
-                                })
+                                
+                                
+                                // .then(function (response) {
+                                //     return response.data
+                                // })
+                                // .then(function (data) {
+                                //     vm.flats = data
+                                // })
 
                         }
 
@@ -151,14 +156,15 @@
                     username: '',
                     password: ''
                 },
-                login: login
+                login: login,
+                errorMessage: false
             })
 
 
 
             function login(user) {
 
-                $rootScope.loginerror = false;
+                // $rootScope.loginerror = false;
                 // console.log(vm.user)
                 $http.post('/login', vm.user)
                     .success(function (response) {
@@ -172,7 +178,11 @@
 
                 //     //    document.getElementById('errormessage').innerHTML = "Bad name or password";
                 // //    errormessage = true;
-                $rootScope.loginerror = true;
+                // $rootScope.loginerror = true;
+                vm.errorMessage = true;
+                //form reset after submit
+                vm.user = {username: '', password: ''}
+              
                 
 
                     });
@@ -189,7 +199,8 @@
                     password: '',
                     password2: ''
                 },
-                register: register
+                register: register,
+                errorMessage: false
             })
 
             function register(user) {
@@ -206,7 +217,8 @@
                         });
                 }
                 else{
-                    $rootScope.errorregister = true;
+                    vm.errorMessage = true;
+                    vm.user = {username: '', password: '', password2: ''}
                 }
 
             };
@@ -261,10 +273,28 @@
                     .then(function (response) {
                         vm.flat = response.data;
                     })
-                    .catch(function (reason) {
-                        alert('errorrrr')
-                    })
+                    // .then(function (response) {
+                    //     vm.flat = response.data;
+                    // })
+                    // .catch(function (reason) {
+                    //     alert('errorrrr')
+                    // })
             }
+            
+            // function addComment() {
+                
+            //     var id = flat._id;
+            //     $http.post('/api/flat/' + id + '/comment', vm.input)
+            //         .then(function (response) {
+            //             vm.flat = response.data;
+            //         })
+            //         // .then(function (response) {
+            //         //     vm.flat = response.data;
+            //         // })
+            //         // .catch(function (reason) {
+            //         //     alert('errorrrr')
+            //         // })
+            // }
 
             function deleteComment($index) {
                 var id = flat._id;
