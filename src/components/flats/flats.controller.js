@@ -3,7 +3,7 @@
 
     angular
         .module('app')
-        .controller('FlatController', function (flats, $http, $rootScope) {
+        .controller('FlatsController', function (flats, $http, $rootScope) {
             var vm = this
             angular.extend(vm, {
                 flats: flats,
