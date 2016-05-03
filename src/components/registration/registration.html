@@ -1,6 +1,4 @@
 <div class="row">
-    
-
     <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4 registration-form-background">
         <h3 class="text-center">Registra stion s </h3>
         <form ng-submit="registrationCtrl.register(user)">
@@ -24,7 +22,7 @@
                         <input type="password" placeholder="Password" ng-model="registrationCtrl.user.password" class="form-control">
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon">
@@ -38,11 +36,10 @@
                 <div class="text-center form-group">
                     <button type="submit" class="btn btn-success btn-lg btn-block">Register</button>
                 </div>
-                
+
                 <div class="alert alert-danger text-center form-group" role="alert" ng-show="registrationCtrl.errorMessage">Passwords don't match</div>
 
             </fieldset>
         </form>
-
     </div>
 </div>

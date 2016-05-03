@@ -9,7 +9,7 @@ var sass = require('gulp-sass');
 
 var config = {
     index: ['src/index.html'],
-    templates: ['src/templates/**/*.html'],
+    templates: ['src/components/**/*.html'],
     sass: {
         index: 'src/app.scss',
         all: ['src/**/*.scss']
@@ -22,18 +22,18 @@ var config = {
 
 gulp.task('nodemon', function () {
     nodemon({
-        script: 'server', 
+        script: 'server',
         ignore: 'src/**/*.*',
         watch: ['server/**/*.js'],
         ext: 'js',
         env: { 'NODE_ENV': 'development' }
     })
-    .on('restart', function () {
-        browserSync.reload();
-    });
+        .on('restart', function () {
+            browserSync.reload();
+        });
 });
 
-gulp.task('serve', function() {
+gulp.task('serve', function () {
     browserSync.init({
         proxy: "localhost:" + (process.env.PORT || 5000),
         serveStatic: ['public']
@@ -45,7 +45,7 @@ gulp.task('copy', function () {
         .pipe(gulp.dest('public'));
 });
 
-gulp.task('sass', function() {
+gulp.task('sass', function () {
     return gulp.src(config.sass.index)
         .pipe(sass())
         .pipe(gulp.dest('public'))
@@ -53,40 +53,53 @@ gulp.task('sass', function() {
 });
 
 gulp.task('js', function () {
-    var app =  gulp.src(config.scripts.app)
-        
+    var app = gulp.src(config.scripts.app)
+        .on('error', function (error) {
+            console.log('scripts', error);
+            this.emit('end');
+        });
+
     var templates = gulp.src(config.templates)
-		.pipe(ngTemplates({
-			module: 'app',
+        .pipe(ngTemplates({
+            module: 'app',
             standalone: false
-        }));
-        
+        }))
+        .on('error', function (error) {
+            console.log('templates', error);
+            this.emit('end');
+        });
+
     return seq([app, templates])
+        .on('error', function (error) {
+            
+            console.log('seq', error.stack);
+            this.emit('end');
+        })
         .pipe(concat('app.js'))
         .pipe(gulp.dest('public'));
 });
 
-gulp.task('js-watch', ['js'], function() {
-    browserSync.reload(); 
+gulp.task('js-watch', ['js'], function () {
+    browserSync.reload();
 });
 
 gulp.task('watch', ['build', 'nodemon', 'serve'], function () {
     watch(config.index, function () {
         gulp.start('copy');
     });
-    
+
     watch('public/index.html', browserSync.reload);
-    
+
     watch(config.sass.all, function () {
         gulp.start('sass');
     });
-    
+
     watch(config.scripts.watch, function () {
         gulp.start('js-watch');
     });
-    
+
     watch(config.templates, function () {
-        gulp.start('js-watch');        
+        gulp.start('js-watch');
     });
 });
 

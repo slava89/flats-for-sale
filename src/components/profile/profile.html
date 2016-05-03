@@ -4,16 +4,16 @@
     <h2>Welcome! Logged in as an Admin</h2>
     <h3>Current list of users:</h3>
     <table class="table table-striped">
-        
+
         <tr>
             <td>User name</td>
             <td>Position</td>
-           
+
         </tr>
         <tr ng-repeat="user in profileCtrl.users">
             <td>{{user.username}}</td>
             <td>{{user.roles[0]}}</td>
-           
+
         </tr>
     </table>
 </div>
