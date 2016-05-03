@@ -11,7 +11,6 @@ var app = express()
 app.use(express.static(__dirname + '/public'))
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
-var sha256 = require('js-sha256');
 
 app.use(session({secret:'this is the secret'}))
 app.use(cookieParser());
