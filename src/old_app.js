@@ -1,6 +1,6 @@
 /* global angular */
 (function () {
-    var app = angular.module('app', ['ui.router'])
+    var app = angular.module('app')
 
     
 
@@ -12,19 +12,19 @@
             $stateProvider
                 .state('login', {
                     url: "/login",
-                    templateUrl: "/login.html",
+                    templateUrl: "login.html",
                     controller: "LoginController as loginCtrl"
                 })
 
                 .state('registration', {
                     url: "/registration",
-                    templateUrl: "/registration.html",
+                    templateUrl: "registration.html",
                     controller: "RegistrationController as registrationCtrl"
                 })
 
                 .state('profile', {
                     url: "/profile",
-                    templateUrl: "/profile.html",
+                    templateUrl: "profile.html",
                     controller: "ProfileController as profileCtrl",
                     resolve: {
                         //if loggen in then go to profile
@@ -54,7 +54,7 @@
 
                 .state('flats', {
                     url: "/",
-                    templateUrl: "/flats.html",
+                    templateUrl: "flats.html",
                     controller: function (flats, $http, $rootScope) {
                         var vm = this
                         angular.extend(vm, {
@@ -127,12 +127,12 @@
                 })
                 .state('add', {
                     url: "/add-flat",
-                    templateUrl: "/add-flat.html",
+                    templateUrl: "add-flat.html",
                     controller: 'AddFlatController as add'
                 })
                 .state('flat', {
                     url: '/flat/:id',
-                    templateUrl: '/flat.html',
+                    templateUrl: 'flat.html',
                     controller: 'FlatController as flatCtrl',
                     resolve: {
                         flat: function ($http, $stateParams) {
@@ -343,12 +343,9 @@
              }
                 
                 $rootScope.loggedIn();
-            })
+            });
         
-        angular.bootstrap(document.getElementById('app'), ['app'])
-
-
-    })()
-
-
-
+        document.addEventListener("DOMContentLoaded", function() {
+            angular.bootstrap(document.getElementById('app'), ['app'])                        
+        });
+    })();

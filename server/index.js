@@ -15,7 +15,7 @@ var LocalStrategy = require('passport-local').Strategy;
 app.use(session({secret:'this is the secret'}))
 app.use(cookieParser());
 app.use(passport.initialize())
-app.use(passport.session());
+app.use(passport.session()); 
 
 var bodyParser = require('body-parser')
 
