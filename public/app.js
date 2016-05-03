@@ -2,11 +2,7 @@
 (function () {
     var app = angular.module('app', ['ui.router'])
 
-    
-
-
         app.config(function ($stateProvider, $urlRouterProvider) {
-
             $urlRouterProvider.otherwise("/");
 
             $stateProvider
@@ -55,28 +51,50 @@
                 .state('flats', {
                     url: "/",
                     templateUrl: "/flats.html",
+<<<<<<< HEAD
+                    controller: function(flats, $http) {
+=======
                     controller: function (flats, $http, $rootScope) {
+>>>>>>> refs/remotes/origin/master
                         var vm = this
                         angular.extend(vm, {
                             flats: flats,
                             deleteFlat: deleteFlat,
+<<<<<<< HEAD
+                            // addLike: addLike
+=======
                             addFlatLike: addFlatLike
                             , isAdmin: isAdmin
+>>>>>>> refs/remotes/origin/master
                         })
 
                         function deleteFlat(_id) {
                             $http.delete('/api/flat/' + _id)
-                                .then(function (response) {
+                                .then(function(response) {
                                     return $http.get('/api/flats')
                                 })
-                                .then(function (response) {
+                                .then(function(response) {
                                     return response.data
                                 })
-                                .then(function (data) {
+                                .then(function(data) {
                                     vm.flats = data
                                 })
                         }
 
+<<<<<<< HEAD
+                        // function addLike(_id) {
+                        //     $http.post('api/flat/' + _id)
+                        //         .then(function(response) {
+                        //             return $http.get('/api/flats')
+                        //         })
+                        //         .then(function(response) {
+                        //             return response.data
+                        //         })
+                        //         .then(function(data) {
+                        //             vm.flats = data
+                        //         })
+                        // }
+=======
                         function addFlatLike(_id) {
 
                             $http.post('/api/flat/' + _id + '/flatLikes')
@@ -113,11 +131,12 @@
                         }
                         
                         
+>>>>>>> refs/remotes/origin/master
 
                     },
                     controllerAs: 'flats',
                     resolve: {
-                        flats: function ($http) {
+                        flats: function($http) {
                             return $http.get('/api/flats')
                                 .then(function success(response) {
                                     return response.data
@@ -135,29 +154,39 @@
                     templateUrl: '/flat.html',
                     controller: 'FlatController as flatCtrl',
                     resolve: {
-                        flat: function ($http, $stateParams) {
+                        flat: function($http, $stateParams) {
                             var id = $stateParams.id
                             return $http.get('/api/flat/' + id)
-                                .then(function (response) {
+                                .then(function(response) {
                                     return response.data
                                 })
                         }
                     }
                 })
         })
+<<<<<<< HEAD
+        .controller('AddFlatController', function($http, $state) {
+            var vm = this
+=======
         
         
 
         app.controller('LoginController', function ($http, $rootScope, $state) {
             var vm = this;
+>>>>>>> refs/remotes/origin/master
 
             angular.extend(vm, {
                 user: {
                     username: '',
                     password: ''
                 },
+<<<<<<< HEAD
+                likes: '2',
+                submit: submit
+=======
                 login: login,
                 errorMessage: false
+>>>>>>> refs/remotes/origin/master
             })
 
 
@@ -190,6 +219,9 @@
 
         })
 
+<<<<<<< HEAD
+        .controller('FlatController', function($http, flat) {
+=======
         app.controller('RegistrationController', function ($http, $rootScope, $state) {
             var vm = this;
 
@@ -255,12 +287,13 @@
         })
 
         app.controller('FlatController', function ($http, flat) {
+>>>>>>> refs/remotes/origin/master
             var vm = this
 
             angular.extend(vm, {
                 flat: flat,
                 input: {
-                    comment: 'wopfjqpfq',
+                    comment: '',
                 },
                 submit: submit,
                 deleteComment: deleteComment
@@ -270,15 +303,21 @@
                 $event.preventDefault();
                 var id = flat._id;
                 $http.post('/api/flat/' + id + '/comment', vm.input)
-                    .then(function (response) {
+                    .then(function(response) {
                         vm.flat = response.data;
                     })
+<<<<<<< HEAD
+                    .catch(function(reason) {
+                        alert('errorrrr')
+                    })
+=======
                     // .then(function (response) {
                     //     vm.flat = response.data;
                     // })
                     // .catch(function (reason) {
                     //     alert('errorrrr')
                     // })
+>>>>>>> refs/remotes/origin/master
             }
             
             // function addComment() {
@@ -302,13 +341,17 @@
 
 
                 $http.delete('/api/flat/' + id + '/comment/' + index)
+<<<<<<< HEAD
+                    .then(function(response) {
+=======
                     .then(function (response) {
+>>>>>>> refs/remotes/origin/master
                         return $http.get('/api/flat/' + id)
                     })
-                    .then(function (response) {
+                    .then(function(response) {
                         return response.data
                     })
-                    .then(function (data) {
+                    .then(function(data) {
                         vm.flat = data
                     })
             }
