@@ -29,7 +29,7 @@ gulp.task('sass', function() {
         .pipe(browserSync.stream());
 });
 
-gulp.task('watch', ['build'], function () {
+gulp.task('watch', ['build', 'serve'], function () {
     watch(config.index, function () {
         gulp.start('copy');        
     });
@@ -41,6 +41,6 @@ gulp.task('watch', ['build'], function () {
     });
 });
 
-gulp.task('build', ['copy', 'sass', 'serve']);
+gulp.task('build', ['copy', 'sass']);
 
 gulp.task('default', ['copy']);
