@@ -6,6 +6,10 @@ Flats
         <span ng-click="flats.addLike(flat._id)">&#x2661;</span>
         <span>{{flat.likes}}</span>
         <a ui-sref="flat({id: flat._id})">Details</a>
-        <button ng-click="flats.deleteFlat(flat._id)">DELETE</button>
+        <span id="like" ng-click="flats.addFlatLike(flat._id)"><i  class="fa fa-heart-o"></i></span>
+        <span class="label label-info">{{flat.flatLikes}}</span>
+        
+        <button ng-click="flats.deleteFlat(flat._id)" ng-show="flats.isAdmin()">DELETE</button>
+        
     </li>
 </ul>

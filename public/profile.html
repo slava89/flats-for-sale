@@ -1,0 +1,23 @@
+<h1>Profile</h1>
+
+<div ng-show="currentUser.roles.indexOf('admin') > -1">
+    <h2>Welcome! Logged in as an Admin</h2>
+    <h3>Current list of users:</h3>
+    <table class="table table-striped">
+        
+        <tr>
+            <td>User name</td>
+            <td>Position</td>
+           
+        </tr>
+        <tr ng-repeat="user in profileCtrl.users">
+            <td>{{user.username}}</td>
+            <td>{{user.roles[0]}}</td>
+           
+        </tr>
+    </table>
+</div>
+
+<div ng-show="currentUser.roles.indexOf('commonUser') > -1">
+    <h2>Welcome, dear user!</h2>
+</div>
