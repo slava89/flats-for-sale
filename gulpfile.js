@@ -9,7 +9,7 @@ var sass = require('gulp-sass');
 
 var config = {
     index: ['src/index.html'],
-    templates: ['src/components/**/*.html'],
+    templates: ['src/**/*.html', '!src/index.html'],
     sass: {
         index: 'src/app.scss',
         all: ['src/**/*.scss']
