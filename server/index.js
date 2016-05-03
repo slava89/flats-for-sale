@@ -8,7 +8,7 @@ dotenv.config();
 mongoose.connect(process.env.MONGO_DB);
 var express = require('express')
 var app = express()
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/../public'))
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
 
