@@ -54,24 +54,17 @@ gulp.task('sass', function () {
 
 gulp.task('js', function () {
     var app = gulp.src(config.scripts.app)
-        .on('error', function (error) {
-            console.log('scripts', error);
-            this.emit('end');
-        });
+        .pipe(concat('app.js'));
 
     var templates = gulp.src(config.templates)
         .pipe(ngTemplates({
             module: 'app',
             standalone: false
         }))
-        .on('error', function (error) {
-            console.log('templates', error);
-            this.emit('end');
-        });
+        .pipe(concat('templates.js'));
 
     return seq([app, templates])
         .on('error', function (error) {
-            
             console.log('seq', error.stack);
             this.emit('end');
         })
