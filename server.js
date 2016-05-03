@@ -1,7 +1,11 @@
+/* global process, __dirname */
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-var mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/buy-a-flat')
+var mongoose = require('mongoose');
+var dotenv = require('dotenv');
+dotenv.config();
+
+mongoose.connect(process.env.MONGO_DB);
 var express = require('express')
 var app = express()
 app.use(express.static(__dirname + '/public'))
